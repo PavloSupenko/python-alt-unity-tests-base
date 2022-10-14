@@ -1,3 +1,4 @@
+import os
 import time
 from altunityrunner import By
 from tests.base.altunity_base_test import AltUnityBaseTest
@@ -12,8 +13,11 @@ class TestQuestionnaireSkip(AltUnityBaseTest):
         print("Tap skip survey button")
         skipButton.tap()
 
+        self.saveScreenshot(os.path.join("Survey", "enter"))
+
         time.sleep(2)
 
     def test_exit(self):
         print("Finding skip survey button again")
         self.altUnityDriver.wait_for_object_to_not_be_present(By.NAME, 'Skip')
+        self.saveScreenshot(os.path.join("Survey", "exit"))

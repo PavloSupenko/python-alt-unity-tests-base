@@ -1,3 +1,4 @@
+import os.path
 import time
 from altunityrunner import By
 from tests.base.altunity_base_test import AltUnityBaseTest
@@ -15,6 +16,8 @@ class TestPrivacyPolicySkip(AltUnityBaseTest):
         print("Tap on policy accept button")
         acceptButton.tap()
 
+        self.saveScreenshot(os.path.join("PrivacyPolicy", "enter"))
+
         time.sleep(3)
 
     def test_exit(self):
@@ -23,3 +26,4 @@ class TestPrivacyPolicySkip(AltUnityBaseTest):
 
         print("Finding again policy accept button")
         self.altUnityDriver.wait_for_object_to_not_be_present(By.NAME, 'ButtonOk')
+        self.saveScreenshot(os.path.join("PrivacyPolicy", "exit"))

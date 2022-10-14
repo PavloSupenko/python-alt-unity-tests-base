@@ -1,0 +1,7 @@
+examples/system_dialogs_skip_test
+examples/privacy_policy_skip_test
+examples/questionnaire_skip_test
+examples/purchase_menu_open_test
+examples/purchase_button_tap_test
+examples/parental_gate_pass_test
+examples/enter_sandbox_account
