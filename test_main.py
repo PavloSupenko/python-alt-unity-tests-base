@@ -1,13 +1,29 @@
-from datetime import datetime
+from pprint import pprint
+import yaml
 
-testsOrderFile = open("tests.txt", "r")
-testNames = testsOrderFile.read().split('\n')
 
-print('Test names found:')
-testNumber = 1
-for testName in testNames:
-    print(f"{testNumber}.{testName}")
-    testNumber += 1
+def add_subtests_to_order_list(testData, testsList: list):
+    testsList.append(f"{testData['test']}::test_enter")
 
-current_time = datetime.now().strftime("[%H:%M:%S]")
-print("Current Time =", current_time)
+    if 'subtests' in testData:
+        subtests = testData['subtests']
+        for subtest in subtests:
+            add_subtests_to_order_list(subtest, testsList)
+
+    testsList.append(f"{testData['test']}::test_exit")
+
+
+def convert_tests_order_file_to_list(filename: str):
+    with open(filename) as testsOrderFile:
+        testsOrder = yaml.safe_load(testsOrderFile)
+
+    testsList = []
+
+    for test in testsOrder:
+        add_subtests_to_order_list(test, testsList)
+
+    return testsList
+
+
+tests = convert_tests_order_file_to_list('tests.yml')
+pprint(tests)

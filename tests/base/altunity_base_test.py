@@ -1,8 +1,7 @@
-import os
 import unittest
-from altunityrunner import AltUnityDriver
 from tests.base.appium_screenshot import AppiumScreenshot
 from tests.drivers.appium_existing_driver import AppiumExistingDriver
+from tests.drivers.custom_alt_unity_driver import CustomAltUnityDriver
 
 
 class AltUnityBaseTest(unittest.TestCase):
@@ -13,15 +12,11 @@ class AltUnityBaseTest(unittest.TestCase):
         self.isIosPlatform = appiumExistingDriver.isIosPlatform
         self.isAndroidPlatform = appiumExistingDriver.isAndroidPlatform
 
-        self.altUnityDriver = AltUnityDriver(host="127.0.0.1", port=13000, enable_logging=True, timeout=30)
-
-        # Extract screenshots directory to environment variable in test .sh script
-        generalArtifactsDirectory = os.environ['DEVICEFARM_LOG_DIR']
-        self.screenshotsSaveDirectory = os.path.join(generalArtifactsDirectory, "Screenshots")
-        print(f"Screenshots save directory: {self.screenshotsSaveDirectory}")
+        self.altUnityDriver = CustomAltUnityDriver(host="127.0.0.1", port=13000, enable_logging=True, timeout=30)
 
     def tearDown(self):
         self.altUnityDriver.stop()
 
     def saveScreenshot(self, screenshotName):
         AppiumScreenshot(screenshotName).save(self.appiumDriver)
+
