@@ -4,5 +4,7 @@
 - test: examples/purchase_menu_open_test
   subtests:
     - test: examples/purchase_button_tap_test
-    - test: examples/parental_gate_pass_test
-    - test: examples/enter_sandbox_account
+      subtests:
+        - test: examples/parental_gate_pass_test
+          subtests:
+            - test: examples/enter_sandbox_account
