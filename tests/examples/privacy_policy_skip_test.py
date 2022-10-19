@@ -16,7 +16,7 @@ class TestPrivacyPolicySkip(AltUnityBaseTest):
         print("Tap on policy accept button")
         acceptButton.tap()
 
-        self.saveScreenshot(os.path.join("PrivacyPolicy", "enter"))
+        self.saveScreenshot("enter")
 
         time.sleep(3)
 
@@ -26,4 +26,4 @@ class TestPrivacyPolicySkip(AltUnityBaseTest):
 
         print("Finding again policy accept button")
         self.altUnityDriver.wait_for_object_to_not_be_present(By.NAME, 'ButtonOk')
-        self.saveScreenshot(os.path.join("PrivacyPolicy", "exit"))
+        self.saveScreenshot("exit")

@@ -1,25 +1,19 @@
 import os
-from datetime import datetime
 from appium.webdriver.webdriver import WebDriver
 
 
 class AppiumScreenshot:
     def __init__(self, screenshotName):
-        screenshotsDirectoryPath = os.environ['CUSTOM_SCREENSHOTS_DIR']
-        screenshotFullPath = os.path.join(screenshotsDirectoryPath, f"{screenshotName}.png")
-
-        currentTime = datetime.now().strftime("%H:%M:%S")
-        screenshotDirectory = os.path.dirname(screenshotFullPath)
-        newScreenshotFilename = f"[{currentTime}] {os.path.basename(screenshotFullPath)}"
+        current_test_number = os.environ["CUSTOM_TEST_NUMBER"]
+        artifacts_directory = os.environ['DEVICEFARM_LOG_DIR']
+        self.screenshot_path = os.path.join(artifacts_directory, 'tests', f"{current_test_number}", f"{screenshotName}.png")
+        screenshot_directory = os.path.dirname(self.screenshot_path)
 
         # Create subdirectories if it's needed based on filename
-        os.makedirs(screenshotDirectory, exist_ok=True)
-
-        newScreenshotFullPath = os.path.join(screenshotDirectory, newScreenshotFilename)
-        self.screenshotPath = newScreenshotFullPath
-
-        print(f"Screenshots save directory: {newScreenshotFullPath}")
+        # It's pretty important to pass directory path as the argument, not file path
+        os.makedirs(screenshot_directory, exist_ok=True)
+        print(f"Screenshots save directory: {self.screenshot_path}")
 
     def save(self, appiumDriver: WebDriver):
-        screenshotSaveResult = appiumDriver.get_screenshot_as_file(self.screenshotPath)
-        print(f"Saving screenshot on path: {self.screenshotPath} with result: {screenshotSaveResult}")
+        screenshot_save_result = appiumDriver.get_screenshot_as_file(self.screenshot_path)
+        print(f"Saving screenshot on path: {self.screenshot_path} with result: {screenshot_save_result}")

@@ -12,7 +12,7 @@ class TestSystemDialogsSkip(AppiumBaseTest):
 
         time.sleep(5)
 
-        self.saveScreenshot(os.path.join("SystemDialog", "enter"))
+        self.saveScreenshot("enter")
 
         firebaseWarningSkipButton = self.appiumDriver.find_element(by=AppiumBy.ACCESSIBILITY_ID, value='OK')
         firebaseWarningSkipButton.click()
@@ -20,4 +20,4 @@ class TestSystemDialogsSkip(AppiumBaseTest):
         time.sleep(2)
 
     def test_exit(self):
-        self.saveScreenshot(os.path.join("SystemDialog", "exit"))
+        self.saveScreenshot("exit")
