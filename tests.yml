@@ -1,12 +1,9 @@
 - test: examples/system_dialogs_skip_test
-- test: examples/privacy_policy_skip_test
+- test: examples/skip_all_skippables_test
+- test: examples/purchase_menu_open_test
   subtests:
-  - test: examples/questionnaire_skip_test
+  - test: examples/purchase_button_tap_test
     subtests:
-      - test: examples/purchase_menu_open_test
-        subtests:
-          - test: examples/purchase_button_tap_test
-            subtests:
-              - test: examples/parental_gate_pass_test
-                subtests:
-                  - test: examples/enter_sandbox_account
+    - test: examples/parental_gate_pass_test
+      subtests:
+      - test: examples/enter_sandbox_account
