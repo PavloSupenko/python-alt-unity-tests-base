@@ -1,5 +1,5 @@
-import os
 import time
+from tests.Markers import Marker
 from tests.base.altunity_base_test import AltUnityBaseTest
 
 
@@ -7,7 +7,7 @@ class TestQuestionnaireSkip(AltUnityBaseTest):
 
     def test_enter(self):
         print("Finding skip survey button")
-        skipButton = self.altUnityDriver.wait_for_object_with_marker('Survey/Skip')
+        skipButton = self.altUnityDriver.wait_for_object_with_marker(Marker.Survey.Skip)
 
         print("Tap skip survey button")
         skipButton.tap()

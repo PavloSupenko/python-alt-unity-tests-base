@@ -1,20 +1,28 @@
 import time
-from altunityrunner import By
+from tests.Markers import Marker
 from tests.base.altunity_base_test import AltUnityBaseTest
 
 
 class TestPurchaseMenuOpen(AltUnityBaseTest):
 
     def test_enter(self):
-        print("Finding open purchase menu button")
-        openMenuButton = self.altUnityDriver.wait_for_object(By.NAME, 'Subscribe')
+        print("Waiting for purchase menu open button")
+        menuOpenButton = self.altUnityDriver.wait_for_object_with_marker(Marker.InApp.MenuOpenButton)
 
-        time.sleep(5)
+        print("Tap purchase menu open button")
+        menuOpenButton.tap()
 
-        print("Tap open purchase menu button")
-        openMenuButton.tap()
+        self.saveScreenshot("open_purchase_menu")
+        time.sleep(2)
 
-        time.sleep(10)
+        self.saveScreenshot("opened_menu")
+        time.sleep(2)
 
     def test_exit(self):
-        pass
+        print("Finding purchase menu close button")
+        menuCloseButton = self.altUnityDriver.wait_for_object_with_marker(Marker.InApp.MenuCloseButton)
+
+        print("Tap purchase menu close button")
+        menuCloseButton.tap()
+
+        self.saveScreenshot("close_purchase_menu")
