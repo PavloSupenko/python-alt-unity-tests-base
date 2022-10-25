@@ -11,6 +11,7 @@ class AltUnityBaseTest(unittest.TestCase):
         self.appiumDriver = appiumExistingDriver.webDriver
         self.isIosPlatform = appiumExistingDriver.isIosPlatform
         self.isAndroidPlatform = appiumExistingDriver.isAndroidPlatform
+        self.screenshooter = AppiumScreenshot()
 
         self.altUnityDriver = CustomAltUnityDriver(host="127.0.0.1", port=13000, enable_logging=True, timeout=30)
 
@@ -18,5 +19,5 @@ class AltUnityBaseTest(unittest.TestCase):
         self.altUnityDriver.stop()
 
     def saveScreenshot(self, screenshotName):
-        AppiumScreenshot(screenshotName).save(self.appiumDriver)
+        self.screenshooter.save(self.appiumDriver, screenshotName)
 

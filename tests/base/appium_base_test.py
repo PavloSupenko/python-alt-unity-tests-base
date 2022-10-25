@@ -10,6 +10,7 @@ class AppiumBaseTest(unittest.TestCase):
         self.appiumDriver = appiumExistingDriver.webDriver
         self.isIosPlatform = appiumExistingDriver.isIosPlatform
         self.isAndroidPlatform = appiumExistingDriver.isAndroidPlatform
+        self.screenshooter = AppiumScreenshot()
 
     def saveScreenshot(self, screenshotName):
-        AppiumScreenshot(screenshotName).save(self.appiumDriver)
+        self.screenshooter.save(self.appiumDriver, screenshotName)
