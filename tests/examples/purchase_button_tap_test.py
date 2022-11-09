@@ -20,5 +20,7 @@ class TestPurchaseButtonTap(AltUnityBaseTest):
         self.saveScreenshot("purchase_button_tap_result")
         time.sleep(2)
 
+        self.saveAnalytics("tap_purchase_button")
+
     def test_exit(self):
         pass

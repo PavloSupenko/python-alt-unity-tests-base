@@ -2,8 +2,8 @@ import json
 import os
 import sys
 import requests
-from appium import webdriver
-from appium.webdriver.webdriver import WebDriver
+from tests.drivers.custom_appium_driver import CustomAppiumDriver
+
 sys.path.append(os.path.dirname(__file__))
 
 
@@ -12,9 +12,11 @@ class AppiumExistingDriver:
     platform = None
     isIosPlatform = False
     isAndroidPlatform = False
+    capabilities = None
 
-    def __init__(self):
-        content = requests.get('http://127.0.0.1:4723/wd/hub/sessions').text
+    def __init__(self, appium_port: int):
+        appiumUrl = f"http://localhost:{appium_port}/wd/hub"
+        content = requests.get(f"{appiumUrl}/sessions").text
 
         if content is None or content is "":
             print("No Appium sessions found.")
@@ -22,23 +24,30 @@ class AppiumExistingDriver:
 
         print(f"Sessions request content: {content}")
 
-        appiumUrl = "http://localhost:4723/wd/hub"
-        sessionsData = json.loads(content)
-        firstSessionId = sessionsData["value"][0]["id"]
+        appiumData = json.loads(content)
+        sessionsData = appiumData["value"]
+        firstSessionData = sessionsData[0]
+
+        firstSessionId = firstSessionData["id"]
+        firstSessionCapabilities = firstSessionData["capabilities"]
+
+        print(f"Session capabilities: {firstSessionCapabilities}")
+        print(f"Session ID: {firstSessionId}")
 
         self.webDriver = self.attach_to_session(appiumUrl, firstSessionId)
-        self.set_up_platform_fields(sessionsData)
+        self.set_up_platform_fields(firstSessionCapabilities)
+        self.capabilities = firstSessionCapabilities
 
-    def set_up_platform_fields(self, sessionsData):
+    def set_up_platform_fields(self, sessionCapabilities):
         # platform is [Android / iOS]
-        self.platform = sessionsData["value"][0]["capabilities"]["platformName"]
+        self.platform = sessionCapabilities["platformName"]
         print(f"Appium platform: {self.platform}")
 
         self.isAndroidPlatform = self.platform == 'Android'
         self.isIosPlatform = self.platform == 'iOS'
 
     def attach_to_session(self, executor_url, session_id):
-        original_execute = WebDriver.execute
+        original_execute = CustomAppiumDriver.execute
 
         def new_command_execute(self, command, params=None):
             if command == 'newSession':
@@ -46,8 +55,8 @@ class AppiumExistingDriver:
             else:
                 return original_execute(self, command, params)
 
-        WebDriver.execute = new_command_execute
-        driver = webdriver.Remote(command_executor=executor_url, desired_capabilities={}, direct_connection=False)
+        CustomAppiumDriver.execute = new_command_execute
+        driver = CustomAppiumDriver(command_executor=executor_url, desired_capabilities={}, direct_connection=False)
         driver.session_id = session_id
-        WebDriver.execute = original_execute
+        CustomAppiumDriver.execute = original_execute
         return driver

@@ -18,11 +18,19 @@ class TestPurchaseMenuOpen(AltUnityBaseTest):
         self.saveScreenshot("opened_menu")
         time.sleep(2)
 
+        self.saveAnalytics("opened_menu")
+
     def test_exit(self):
-        print("Finding purchase menu close button")
-        menuCloseButton = self.altUnityDriver.wait_for_object_with_marker(Marker.InApp.MenuCloseButton)
+        print("Finding purchase menu close buttons")
+        try:
+            while True:
+                menuCloseButton = self.altUnityDriver.wait_for_object_with_marker(Marker.InApp.MenuCloseButton, timeout=10, interval=2)
+                menuCloseButtonName = menuCloseButton.name
+                menuCloseButtonParentName = menuCloseButton.get_parent().name
 
-        print("Tap purchase menu close button")
-        menuCloseButton.tap()
+                print(f"Close menu button found on object: {menuCloseButtonName} with parent: {menuCloseButtonParentName}")
+                menuCloseButton.tap()
 
-        self.saveScreenshot("close_purchase_menu")
+                self.saveScreenshot(f"close.{menuCloseButtonParentName}.{menuCloseButtonName}")
+        except:
+            print(f"Close button found anymore")

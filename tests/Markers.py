@@ -7,6 +7,3 @@ class Marker:
         MenuCloseButton = 'InApp/MenuCloseButton'
         InMenuPurchaseButton = 'InApp/InMenuPurchaseButton'
         InMenuRestoreButton = 'InApp/InMenuRestoreButton'
-
-    class Survey:
-        Skip = 'Survey/Skip'

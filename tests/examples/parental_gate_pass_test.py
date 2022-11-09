@@ -12,7 +12,9 @@ class TestParentalGatePass(AltUnityBaseTest):
         # Assembly should be defined to not cause 'Not loaded assembly' error
         # Assembly in this case - assembly definition file name
         parentalGate.call_component_method(componentName, 'DoAction', ['true'], None, 'Bini.ToolKit.StandardMenus')
-        time.sleep(5)
+
+        time.sleep(2)
+        self.saveAnalytics("parental_gate_pass")
 
     def test_exit(self):
         pass

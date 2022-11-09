@@ -1,9 +1,23 @@
-- test: examples/system_dialogs_skip_test
-- test: examples/skip_all_skippables_test
-- test: examples/purchase_menu_open_test
+- test: examples/sign_in_account_test
+- test: examples/launch_application_test
   subtests:
-  - test: examples/purchase_button_tap_test
+  - test: examples/system_dialogs_skip_test
+  - test: examples/skip_all_skippables_test
+  - test: examples/purchase_menu_open_test
     subtests:
-    - test: examples/parental_gate_pass_test
+    - test: examples/purchase_button_tap_test
       subtests:
-      - test: examples/enter_sandbox_account
+      - test: examples/parental_gate_pass_test
+        subtests:
+        - test: examples/do_purchase_test
+          subtests:
+          - test: examples/verify_sandbox_password_test
+            subtests:
+            - test: examples/accept_purchase_success_message_test
+              subtests:
+              - test: examples/save_purchase_completed_analytics_test
+              - test: examples/discard_last_subscription_test
+- test: examples/restart_application_test
+  subtests:
+  - test: examples/skip_all_skippables_test
+  - test: examples/purchase_menu_open_test

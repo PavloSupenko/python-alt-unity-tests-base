@@ -1,4 +1,3 @@
-import os
 import time
 from appium.webdriver.common.appiumby import AppiumBy
 from tests.base.appium_base_test import AppiumBaseTest
