@@ -1,10 +1,10 @@
-from tests.base.altunity_base_test import AltUnityBaseTest
+from tests.base.alt_unity_driver_wrapper import AltUnityDriverWrapper
 
 
-class TestSavePurchaseCompletedAnalytics(AltUnityBaseTest):
+class TestSavePurchaseCompletedAnalytics(AltUnityDriverWrapper):
 
     def test_enter(self):
-        self.saveAnalytics("purchase_completed")
+        self.save_analytics("purchase_completed")
 
     def test_exit(self):
         pass

@@ -3,7 +3,5 @@ class Marker:
         Skip = 'General/Skip'
 
     class InApp:
-        MenuOpenButton = 'InApp/MenuOpenButton'
-        MenuCloseButton = 'InApp/MenuCloseButton'
-        InMenuPurchaseButton = 'InApp/InMenuPurchaseButton'
-        InMenuRestoreButton = 'InApp/InMenuRestoreButton'
+        MenuOpenButton = 'InApp/OpenMenu'
+        MenuCloseButton = 'InApp/CloseMenu'

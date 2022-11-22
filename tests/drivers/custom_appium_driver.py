@@ -31,6 +31,18 @@ class CustomAppiumDriver(webdriver.Remote):
             options=options
         )
 
+    def find_element_with_multiple_criteria(self, by: str, values: List[str]):
+        for value in values:
+            try:
+                print(f"Checking for object by criteria: {by} with value: {value}")
+                found_object = self.find_element(by=by, value=value)
+                print(f"Object with value: {value} found.")
+                return found_object
+            except:
+                continue
+
+        raise Exception(f"Objects by criteria: {by} with any value of: {values} not found.")
+
     def wait_for_element(self, by: str = AppiumBy.ID, value: Union[str, Dict] = None, timeout=20, interval=1):
         timer = 0
         while timer < timeout:

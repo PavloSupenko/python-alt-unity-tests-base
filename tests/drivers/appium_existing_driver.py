@@ -1,6 +1,8 @@
 import json
 import os
 import sys
+import time
+
 import requests
 from tests.drivers.custom_appium_driver import CustomAppiumDriver
 
@@ -18,11 +20,15 @@ class AppiumExistingDriver:
         appiumUrl = f"http://localhost:{appium_port}/wd/hub"
         content = requests.get(f"{appiumUrl}/sessions").text
 
-        if content is None or content is "":
-            print("No Appium sessions found.")
-            return
-
         print(f"Sessions request content: {content}")
+
+        if content is None or content is "" or 'capabilities' not in content:
+            print("No Appium sessions found. New one will be created")
+            self.create_new_session(appiumUrl)
+            time.sleep(10)
+
+            content = requests.get(f"{appiumUrl}/sessions").text
+            print(f"Sessions updated request content: {content}")
 
         appiumData = json.loads(content)
         sessionsData = appiumData["value"]
@@ -45,6 +51,9 @@ class AppiumExistingDriver:
 
         self.isAndroidPlatform = self.platform == 'Android'
         self.isIosPlatform = self.platform == 'iOS'
+
+    def create_new_session(self, executor_url):
+        driver = CustomAppiumDriver(command_executor=executor_url, desired_capabilities={}, direct_connection=False)
 
     def attach_to_session(self, executor_url, session_id):
         original_execute = CustomAppiumDriver.execute

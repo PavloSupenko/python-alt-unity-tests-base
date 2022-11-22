@@ -1,10 +1,10 @@
 import os
 import time
-from altunityrunner import AltUnityDriver
+from alttester import AltDriver
 
 
 class AltUnityAnalytics:
-    def __init__(self, alt_unity_driver: AltUnityDriver, path: str, class_name: str, assembly: str, method: str):
+    def __init__(self, alt_unity_driver: AltDriver, path: str, class_name: str, assembly: str, method: str):
         self._test_artifacts_path = path
         self._current_analytics_file_number = 0
         self._driver = alt_unity_driver

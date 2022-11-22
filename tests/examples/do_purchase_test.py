@@ -1,8 +1,9 @@
+from unittest import TestCase
 from appium.webdriver.common.mobileby import MobileBy
-from tests.base.appium_base_test import AppiumBaseTest
+from tests.base.alt_unity_driver_wrapper import AltUnityDriverWrapper
 
 
-class TestDoPurchase(AppiumBaseTest):
+class TestDoPurchase(TestCase, AltUnityDriverWrapper):
 
     def test_enter(self):
         if self.isAndroidPlatform:

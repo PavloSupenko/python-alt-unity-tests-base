@@ -1,9 +1,9 @@
 import time
 from typing import List
-from altunityrunner import AltUnityDriver, By
+from alttester import AltDriver, By
 
 
-class CustomAltUnityDriver(AltUnityDriver):
+class CustomAltUnityDriver(AltDriver):
     def __init__(self, host="127.0.0.1", port=13000, enable_logging=False, timeout=None,
                  markersComponent='Bini.Drawing.Markers.FeatureMarker', markersAssembly='Bini.Drawing.Markers'):
         super().__init__(host, port, enable_logging, timeout)

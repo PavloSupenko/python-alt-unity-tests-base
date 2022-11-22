@@ -1,13 +1,13 @@
 import time
 from tests.Markers import Marker
-from tests.base.altunity_base_test import AltUnityBaseTest
+from tests.base.alt_unity_driver_wrapper import AltUnityDriverWrapper
 
 
-class TestPurchaseMenuOpen(AltUnityBaseTest):
+class TestPurchaseMenuOpen(AltUnityDriverWrapper):
 
     def test_enter(self):
         print("Waiting for purchase menu open button")
-        menuOpenButton = self.altUnityDriver.wait_for_object_with_marker(Marker.InApp.MenuOpenButton)
+        menuOpenButton = self.alt_unity_driver.wait_for_object_with_marker(Marker.InApp.MenuOpenButton)
 
         print("Tap purchase menu open button")
         menuOpenButton.tap()
@@ -18,13 +18,13 @@ class TestPurchaseMenuOpen(AltUnityBaseTest):
         self.saveScreenshot("opened_menu")
         time.sleep(2)
 
-        self.saveAnalytics("opened_menu")
+        self.save_analytics("opened_menu")
 
     def test_exit(self):
         print("Finding purchase menu close buttons")
         try:
             while True:
-                menuCloseButton = self.altUnityDriver.wait_for_object_with_marker(Marker.InApp.MenuCloseButton, timeout=10, interval=2)
+                menuCloseButton = self.alt_unity_driver.wait_for_object_with_marker(Marker.InApp.MenuCloseButton, timeout=10, interval=2)
                 menuCloseButtonName = menuCloseButton.name
                 menuCloseButtonParentName = menuCloseButton.get_parent().name
 
